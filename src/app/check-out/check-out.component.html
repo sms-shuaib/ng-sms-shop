@@ -1,0 +1,63 @@
+<h1> Shipping </h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form #ship="ngForm" (ngSubmit)="saveDetail(ship.value)">
+            <div class="form-group">
+                <label for="customerName">Name</label>
+                <input #customerName="ngModel" ngModel type="text" id="customerName" name="customerName"
+                    class="form-control" required />
+                <div *ngIf="customerName.touched && customerName.invalid" class="alert alert-danger">
+                    Name is Required
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="customerName">Address</label>
+                <input #line1="ngModel" ngModel type="text" id="addressLine1" name="addressLine1" placeholder="Line 1"
+                    class="form-control" required />
+                <div *ngIf="line1.touched && line1.invalid" class="alert alert-danger">
+                    Address is Required
+                </div>
+                <br>
+                <input #line2="ngModel" ngModel type="text" id="addressLine2" name="addressLine2" placeholder="Line 2"
+                    class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input #city="ngModel" ngModel type="text" id="city" name="city" class="form-control" required />
+                <div *ngIf="city.touched && city.invalid" class="alert alert-danger">
+                    City is Required
+                </div>
+            </div>
+            <div class="form-group">
+                <input #placedDate="ngModel" ngModel type="hidden" id="placedDate" name="placedDate"
+                    class="form-control" style="display: none;" />
+            </div>
+            <div class="form-group">
+                <button style="margin-top: 20px;" [disabled]="ship.invalid" type="submit" class="btn btn-primary">Place Order</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="card" style="width: 25rem;">
+            <div class="card-body">
+                <h5 class="card-title">Order Summary</h5>
+                <p class="card-text">You have {{totalShoppingCart}} items in your Cart </p>
+                <ul class="list-group list-group-flush">
+                    <li *ngFor="let item of shippingItems" class="list-group-item">
+                        {{item.quantityId}} x {{item.title}}
+                        <div class="float-right">
+                            {{item.quantityId * item.price | currency:'USD':true}}
+                        </div>
+                    </li>
+                    <li class="list-group-item font-weight-bold">
+                        Total
+                        <div class="float-right">
+                            {{totalPrice | currency:'USD':true}}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

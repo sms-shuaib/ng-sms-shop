@@ -1,0 +1,27 @@
+<div class="row" style="width: 60%;">
+    <div class="col-mod-6">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Placed Date</th>
+                <th>Name</th>
+                <th>City</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let detail of shippingDetail">
+                <td>{{detail.placedDate}}</td>
+                <td>{{detail.customerName}}</td>
+                <td>{{detail.city}}</td>
+                <td>
+                    <button type="button" [routerLink]="['/order-success', detail.id]"class="btn btn-primary btn-sm">EDIT</button>
+                </td>
+            </tr>
+        </tbody>
+
+
+    </table>
+</div>
+
+</div>

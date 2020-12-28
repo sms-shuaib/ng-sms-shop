@@ -1,0 +1,61 @@
+
+<div class="row">
+    <div class="col-md-6">
+        <form #form="ngForm" (ngSubmit) = "save(form.value)">
+            <div class="form-group">
+                <label for="title"> Title</label>
+                <input #title="ngModel" [(ngModel)]="product.title" name="title" type="text" id="title" class="form-control" required />
+                <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
+                    Title is Required
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="price"> Price</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">$</span>
+                    </div>
+                    <input #price="ngModel" [(ngModel)]="product.price" name="price" type="number" id="price" class="form-control" required />
+                </div>
+                <div class="alert alert-danger" *ngIf="price.touched  && price.invalid">
+                    Price is Rquired
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="category"> Category</label>
+                <select #category="ngModel" [(ngModel)]="product.category" name="category" id="category" class="form-control" required>
+                    <option *ngFor="let c of categoryData" [value]="c.category">{{c.category}}
+                    </option>
+                </select>
+                <div *ngIf="category.touched && category.invalid" class="alert alert-danger">
+                    Category is Required
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="imageurl"> ImageUrl</label>
+                <input #image="ngModel" [(ngModel)]="product.imageUrl" name="imageUrl" type="text" id="imageurl" class="form-control" required />
+                <div *ngIf="image.touched && image.invalid" class="alert alert-danger">
+                    ImageURl is Required
+                </div>
+            </div>
+            <div class="form-group">
+                <input #quantityId="ngModel" [(ngModel)]="product.quantityId"name="quantityId" type="hidden" id="quantityId" class="form-control" />
+            </div>
+        
+            <div style="margin-top: 10px;" class="form-group">
+                <button  style="margin-right: 5px;" class="btn btn-primary">Save</button>
+                <button  style="margin-right: 5px;" (click)="delete()" type="button" class="btn btn-danger" *ngIf="id">Delete</button>
+                <button  style="margin-right: 5px;" (click)="backToProduct()" type="button" class="btn btn-info">BackToProduct</button>
+            </div>
+        </form>
+    </div>
+   <div class="col-md-6">
+        <div *ngIf="product.title" class="card" style="width: 256px;">
+            <img [src]="product.imageUrl" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">{{product.title}}</h5>
+              <p class="card-text">{{product.price | currency:'USD':true}}</p>
+            </div>
+          </div>
+    </div>
+</div>

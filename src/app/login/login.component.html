@@ -1,0 +1,31 @@
+<!-- <button class="btn btn-primary" (click)="login()">Login with Google</button> -->
+<div style="width: 30%;">
+<form  [formGroup] = "loginForm" (ngSubmit)="onSubmit()"> 
+    <p> <b>Login Form</b></p>
+<div class="form-group">
+        <div *ngIf="noUser" class="alert alert-danger"> Invalid Credential or Sign Up Page if not done yet.    
+        </div>
+        <label for="userName"> UserName: </label>
+        <input required type="text" class="form-control" formControlName="userName"  id="userName" autocomplete="off">
+        <div  *ngIf="userNameValue.touched && userNameValue.invalid" class="alert alert-danger">
+        <div *ngIf="userNameValue.errors.required">UserName is Required</div>
+        <div *ngIf="userNameValue.errors.minlength">Minimum value should be {{userNameValue.errors.minlength.requiredLength }}</div>
+        <div *ngIf="userNameValue.errors.maxlength">Maximum value should be {{userNameValue.errors.maxlength.requiredLength}}</div>
+        </div>
+        <div class="form-group">
+        <label for="passWord">PassWord: </label>
+        <input required type="text" class="form-control" id="passWord"  formControlName="passWord" autocomplete="off">
+        <div  *ngIf="passWordValue.touched && passWordValue.invalid" class="alert alert-danger">
+            <div *ngIf="passWordValue.errors.required"> PassWord is Required</div>
+            <div *ngIf="passWordValue.errors.minlength"> Minimum value should be {{passWordValue.errors.minlength.requiredLength }}</div>
+            <div *ngIf="passWordValue.errors.maxlength">Maximum value should be {{passWordValue.errors.maxlength.requiredLength}}</div>
+        </div>
+    </div>
+    <button type="button" id="signin" class="btn btn-primary" routerLink="/login" (click)="onSubmit()" [disabled]="loginForm.invalid" style="margin-top: 20px;"> SignIn</button>
+    <button type="button" id="signup" class="btn btn-primary" (click)="onSignUp()" style="margin-top: 20px; margin-left: 10px;"> SignUp</button>
+</div>
+</form>
+</div>
+
+
+        

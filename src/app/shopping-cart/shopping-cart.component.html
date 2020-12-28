@@ -1,0 +1,59 @@
+<h1>Shopping-Cart</h1>
+
+<ng-container>
+    <p>you have {{totalShopCart}} items in your shopping cart</p>
+</ng-container>
+
+<table class="table" style="width: 50%;">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let shopCart of shoppingCart">
+            <td>
+                <img [src]="shopCart.imageUrl" class="shoppingImage"/>
+            </td>
+            <td>{{shopCart.title}}</td>
+            <td>
+                <button *ngIf="shopCart.quantityId === 0; else updateQuantity" (click)="addToCard(shopCart.id)" name="cardId"
+                    class="btn btn-secondary btn-block">Add to Cart</button>
+
+                <ng-template #updateQuantity >
+                    <div class="row no-gutters">
+                        <div class="col-3">
+                            <button (click)="removeCart(shopCart.id)" class="btn btn-secondary btn-block">-</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-block" style="text-align: center;">
+                                <input #quantityId="ngModel" [(ngModel)]="shopCart.quantityId" name="quantityId" type="hidden"
+                                    id="quantityId" class="form-control" />
+                                {{quantityId.value}} Carts
+                            </button>
+                        </div>
+                        <div class="col-3">
+                            <button (click)="addToCard(shopCart.id)" class="btn btn-secondary btn-block">+</button>
+                        </div>
+                    </div>
+                </ng-template>
+            </td>
+            <td>{{shopCart.price | currency:'USD':true}}</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <b> {{totalPrice | currency:'USD':true}} </b>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<button  [disabled]="!totalShopCart" class="btn btn-danger btn-sm" (click)="clearCart()">Clear Cart</button>
+<button  [disabled] = "!totalShopCart" class="btn btn-primary btn-sm" style="margin-left: 20px;" routerLink="/check-out"> Check Out</button> 

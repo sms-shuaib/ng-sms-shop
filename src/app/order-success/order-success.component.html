@@ -1,0 +1,56 @@
+<p> <b>Your Order is Success!</b></p>
+<div class="row">
+    <div class="col-md-6">
+        <form>
+            <div class="form-group">
+                <label for="customerName">Name</label>
+                <input [value]="shipDetail.customerName" type="text" id="customerName" name="customerName"
+                    class="form-control" disabled="true" />
+            </div>
+            <div class="form-group">
+                <label for="addressLine1">Address</label>
+                <input [value]="shipDetail.addressLine1" type="text" id="addressLine1" name="addressLine1"
+                    placeholder="Line 1" class="form-control" disabled="true" />
+                <br>
+                <input [value]="shipDetail.addressLine2" type="text" id="addressLine2" name="addressLine2"
+                    placeholder="Line 2" class="form-control" disabled="true" />
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input [value]="shipDetail.city" type="text" id="city" name="city" class="form-control"
+                    disabled="true" />
+            </div>
+            <div class="form-group">
+                <input [value]="shipDetail.placedDate" type="hidden" id="placedDate" name="placedDate"
+                    class="form-control" style="display: none;" />
+            </div>
+            <div class="form-group">
+                <input [value]="shipDetail.userName" type="hidden" id="userName" name="userName" class="form-control"
+                    style="display: none;" />
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card" style="width: 25rem;">
+            <div class="card-body">
+                <h5 class="card-title">Order Summary</h5>
+                <p class="card-text"><b>You have Ordered total {{totalShoppingCart}} items</b></p>
+                <ul class="list-group list-group-flush">
+                    <li *ngFor="let item of shippedItems" class="list-group-item">
+                        {{item.quantityId}} x {{item.title}}
+                        <div class="float-right">
+                            {{item.quantityId * item.price | currency:'USD':true}}
+                        </div>
+                    </li>
+                    <li class="list-group-item font-weight-bold">
+                        Total
+                        <div class="float-right">
+                            {{totalPrice | currency:'USD':true}}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

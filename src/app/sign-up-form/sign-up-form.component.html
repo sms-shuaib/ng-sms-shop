@@ -1,0 +1,38 @@
+<p><b> Welcome to sign up page </b></p>
+    <form [formGroup]="signupForm" style="width: 30%;">
+        <div class="form-group">
+            <label for="userName">UserName</label>
+            <input class="form-control" id="userName" type="text" formControlName="userName" autocomplete="off">
+            <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
+                <div *ngIf="username.errors.required">UserName is required</div>
+                <div *ngIf="username.errors.minlength">Minimum Length is {{username.errors.minlength.requiredLength}}</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="passWord">PassWord</label>
+            <input class="form-control" id="passWord" type="password"formControlName="passWord" autocomplete="off">
+            <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
+                <div *ngIf="password.errors.required">PassWord is required</div>
+                <div *ngIf="password.errors.minlength">Minimum Length is {{password.errors.minlength.requiredLength}}</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="confirmPass">CofirmPassWord</label>
+            <input class="form-control" id="confirmPass" type="password" formControlName="confirmPass" (blur)="checkValue()"autocomplete="off">
+            <div *ngIf="confirmPass.touched && confirmPass.invalid" class="alert alert-danger">
+                <div *ngIf="confirmPass.errors.required">Confirm PassWord is required</div>
+                <div *ngIf="confirmPass.errors.minlength">Minimum Length is {{confirmPass.errors.minlength.requiredLength}}</div>
+            </div>
+            <div *ngIf="invalidCredential" class="alert alert-danger" >Invalid Credential. Please Check</div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input class="form-control" id="email" type="text"formControlName="email" autocomplete="off">
+            <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+                <div *ngIf="email.errors.required">Email is required</div>
+                <div *ngIf="email.errors.minlength">Minimum Length is {{email.errors.minlength.requiredLength}}</div>
+            </div>
+        </div>
+        <button type="button" [disabled]="signupForm.invalid" class="btn btn-primary" (click)="onSave()" style="margin-top: 10px;">Save</button>
+        <!-- <a class="anchorSignUp" routerLink="/signin">Back to Login</a> -->
+    </form>

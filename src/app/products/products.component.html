@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-3" style="width: 15%;">
+        <div class="sticky-top">
+            <div>
+                <a class="list-group-item list-group-item-action" routerLink="/" (click)="filteredData('All Category')"
+                    [class.active]="!category">
+                    All Category</a>
+                <a *ngFor="let c of category$ | async" class="list-group-item list-group-item-action" routerLink="/"
+                    [queryParams]="{category : c.category}" [class.active]="category === c.category"
+                    (click)="filteredData(c.category)">
+                    {{c.category}}
+                </a>
+            </div>
+        </div>
+        <!-- <product-filter [category]="category"></product-filter> -->
+    </div>
+    <div class="col">
+        <div class="row" style="width: 40%;">
+            <ng-container *ngFor="let p of filteredProduct let i = index">
+                <div class="col">
+                    <div class="card" style="width: 15rem;">
+                        <img [src]="p.imageUrl" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{p.title}}</h5>
+                            <p class="card-text">{{p.price | currency:'USD':true}}</p>
+                        </div>
+                        <div class="card-footer" style="padding: 0px;">
+                            <button *ngIf="p.quantityId === 0; else updateQuantity" (click)="addToCard(p)" name="cardId"
+                                class="btn btn-secondary btn-block">Add to Cart</button>
+
+                            <ng-template #updateQuantity>
+                                <div class="row no-gutters">
+                                    <div class="col-3">
+                                        <button (click)="removeCart(p.id)" class="btn btn-secondary btn-block">-</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn btn-secondary btn-block" style="text-align: center;">
+                                            <input #quantityId="ngModel" [(ngModel)]="p.quantityId" name="quantityId" type="hidden" id="quantityId"
+                                                class="form-control" />
+                                            {{quantityId.value}} Carts
+                                        </button>
+                                    </div>
+                                    <div class="col-3">
+                                        <button (click)="addToCard(p)" class="btn btn-secondary btn-block">+</button>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-100" style="margin-bottom: 30px;" *ngIf="(i+1) %  2 === 0"></div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row" style="width: 40%;">
+    <ng-container  *ngFor="let p of product$ | async let i = index">
+        <div class="col">
+            <div class="card" style="width: 15rem;">
+                <img [src]="p.imageUrl" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">{{p.title}}</h5>
+                    <p class="card-text">{{p.price | currency:'USD':true}}</p>
+                    <a class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="w-100"  style="margin-bottom: 30px;" *ngIf="(i+1) %  2 === 0"></div>
+    </ng-container>
+</div> -->
